@@ -15,7 +15,7 @@ class MathGame
         Console.WriteLine("7. EXIT");
     }
 
-    static bool gameoper(ref List<string> history, char op)
+    static bool Game(ref List<string> history, char op)
     {
         Random guesser = new Random();
         int number1 = guesser.Next(0, 100);
@@ -78,7 +78,7 @@ class MathGame
         return false;
     }
 
-    public static void Game()
+    public static void GameDriver()
     {
         Console.WriteLine("New Game has started");
         List<string> history = new List<string>();
@@ -96,21 +96,19 @@ class MathGame
         {
             switch (choice)
             {
-                case 1: if (gameoper(ref history, '+')) correct++; break;
-                case 2: if (gameoper(ref history, '-')) correct++; break;
-                case 3: if (gameoper(ref history, '/')) correct++; break;
-                case 4: if (gameoper(ref history, '*')) correct++; break;
+                case 1: if (Game(ref history, '+')) correct++; break;
+                case 2: if (Game(ref history, '-')) correct++; break;
+                case 3: if (Game(ref history, '/')) correct++; break;
+                case 4: if (Game(ref history, '*')) correct++; break;
                 case 5:
                     {
                         Console.WriteLine("You answered " + history.Count + " questions and correctly answered " + correct + " of them");
                         foreach (string s in history) Console.WriteLine(s);
-                        Console.WriteLine("Correct percentage: " + correct * 100 / history.Count);
+                        if(history.Count>0)Console.WriteLine("Correct percentage: " + correct * 100 / history.Count);
                         break;
                     }
                 case 6: DisplayMenu(); break;
                 default:                         
-                    Console.WriteLine("You answered " + history.Count + " questions and correctly answered " + correct + " of them");
-                    Console.WriteLine("Correct percentage: " + correct * 100 / history.Count);
                     return;
                     break;
             }
@@ -123,7 +121,7 @@ class MathGame
             }
         }
         Console.WriteLine("You answered " + history.Count + " questions and correctly answered " + correct + " of them");
-        Console.WriteLine("Correct percentage: " + correct * 100 / history.Count);
+        if(history.Count>0)Console.WriteLine("Correct percentage: " + correct * 100 / history.Count);
         return;
     }
 }
@@ -132,12 +130,12 @@ class Program
 {
     static void Main(string[] args)
     {
-        MathGame.Game();
+        MathGame.GameDriver();
         Console.WriteLine("Would you like to start a new game: ENTER y");
         string contGame = Console.ReadLine();
         while (contGame.ToLower() == "y")
         {
-            MathGame.Game();
+            MathGame.GameDriver();
             Console.WriteLine("Would you like to start a new game: ENTER y");
             contGame = Console.ReadLine();
         }
